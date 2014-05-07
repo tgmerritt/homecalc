@@ -1,0 +1,28 @@
+# defaults:
+# #  host: 127.0.0.1
+#   host: 127.0.0.1
+#   port: 27017
+#   database: creative_development
+
+development: &defaults
+  # <<: *defaults
+ database: <%=ENV['MONGO_DATABASE']%>
+ host:     <%=ENV['MONGO_HOST']%>
+ port:     <%=ENV['MONGO_PORT']%>
+ username: <%=ENV['MONGO_USERNAME']%>
+ password: <%=ENV['MONGO_PASSWORD']%>
+ uri: <%=ENV['MONGO_URI']%>
+
+test:
+  <<: *defaults
+  database: homecalc_test
+
+# HEROKU SETTINGS - ALL SECURITY IS STORED USING ENVIRONMENT VARIABLES
+production:
+#  <<: *defaults
+ database: <%=ENV['MONGO_DATABASE']%>
+ host:     <%=ENV['MONGO_HOST']%>
+ port:     <%=ENV['MONGO_PORT']%>
+ username: <%=ENV['MONGO_USERNAME']%>
+ password: <%=ENV['MONGO_PASSWORD']%>
+ uri: <%=ENV['MONGO_URI']%>

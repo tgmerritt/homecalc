@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Price:</b>
+  <%= @loan.price %>
+</p>
+
+<p>
+  <b>Down pmt percent:</b>
+  <%= @loan.down_pmt_percent %>
+</p>
+
+<p>
+  <b>Term:</b>
+  <%= @loan.term %>
+</p>
+
+<p>
+  <b>Interest rate:</b>
+  <%= @loan.interest_rate %>
+</p>
+
+<p>
+  <b>Apr:</b>
+  <%= @loan.apr %>
+</p>
+
+<p>
+  <b>Down pmt:</b>
+  <%= @loan.down_pmt %>
+</p>
+
+<p>
+  <b>Annual prop tax:</b>
+  <%= @loan.annual_prop_tax %>
+</p>
+
+<p>
+  <b>Annual insurance:</b>
+  <%= @loan.annual_insurance %>
+</p>
+
+<p>
+  <b>Annual maintenance:</b>
+  <%= @loan.annual_maintenance %>
+</p>
+
+<p>
+  <b>Income tax rate:</b>
+  <%= @loan.income_tax_rate %>
+</p>
+
+<p>
+  <b>Hoa dues:</b>
+  <%= @loan.hoa_dues %>
+</p>
+
+
+<%= link_to 'Edit', edit_loan_path(@loan) %> |
+<%= link_to 'Back', loans_path %>

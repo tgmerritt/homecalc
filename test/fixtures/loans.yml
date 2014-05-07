@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  price: 1.5
+  down_pmt_percent: 1.5
+  term: 1
+  interest_rate: 1.5
+  apr: 1.5
+  down_pmt: 1.5
+  annual_prop_tax: 1.5
+  annual_insurance: 1.5
+  annual_maintenance: 1.5
+  income_tax_rate: 1.5
+  hoa_dues: 1.5
+
+two:
+  price: 1.5
+  down_pmt_percent: 1.5
+  term: 1
+  interest_rate: 1.5
+  apr: 1.5
+  down_pmt: 1.5
+  annual_prop_tax: 1.5
+  annual_insurance: 1.5
+  annual_maintenance: 1.5
+  income_tax_rate: 1.5
+  hoa_dues: 1.5

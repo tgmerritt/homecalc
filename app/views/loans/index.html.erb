@@ -1,0 +1,119 @@
+<div class="col-md-12">
+    <div class="col-md-4"><h1>Last 5 loans</h1></div>
+    <div class="col-md-4"><%= link_to 'New Loan', new_loan_path, :class => "btn btn-primary", :style => "color:white;margin-top:20px" %></div>
+</div>
+<div class="col-md-3">
+    <div class="col-md-12" style="color:blue;font-size:1.4em;min-height:25px">Lender in Postal Code</div>
+    <div class="col-md-12">Price</div>
+    <div class="col-md-12">Down Pmt $</div>
+    <div class="col-md-12">Down Pmt %</div>
+    <div class="col-md-12">Term</div>
+    <div class="col-md-12">Interest Rate</div>
+    <div class="col-md-12">APR</div>
+    <div class="col-md-12">Annual Property Tax</div>
+    <div class="col-md-12">Annual Insurance Rate</div>
+    <div class="col-md-12">Private Mortgage Insurance (PMI)</div>
+    <div class="col-md-12">Annual Maintenance</div>
+    <div class="col-md-12">Annual Improvements</div>
+    <div class="col-md-12">Income Tax Rate</div>
+    <div class="col-md-12">HOA dues</div>
+    <div class="col-md-12" style="color:blue;font-size:1.2em">Monthly Breakdown</div>
+        <div class="col-md-12">Loan Amount</div>
+        <div class="col-md-12">Mortgage Payment (PI)</div>
+        <div class="col-md-12">Property Tax (T)</div>
+        <div class="col-md-12">Homeowners Insurance (I)</div>
+        <div class="col-md-12">Monthly Payment (PITI)</div>
+    <div class="col-md-12" style="color:blue;font-size:1.2em">Expense Breakdown</div>
+        <div class="col-md-12">Maintenance</div>
+        <div class="col-md-12">Improvements</div>
+        <div class="col-md-12">Monthly Ownership Expense</div>
+    <div class="col-md-12" style="color:blue;font-size:1.2em">Estimated Tax Adjustment</div>
+        <div class="col-md-12">Est. Monthly Mortgage Interest</div>
+        <div class="col-md-12">Monthly Tax Adjustment</div>
+        <div class="col-md-12" style="color:green;font-size:1.1em">Tax-adjusted monthly expense</div>
+    <div class="col-md-12" style="color:blue;font-size:1.2em">Cash to Close</div>
+    <div class="col-md-12">Third Party Fees</div>
+    <div class="col-md-12">Lender Fees</div>
+    <div class="col-md-12">Pre-paids and Escrow</div>
+    <div class="col-md-12">TOTAL</div>
+</div>
+
+<% @loans.each do |loan| %>
+    <div class="col-md-2">
+        <div class="col-md-12" style="min-height:25px"> <%= loan.bank_name %> <%= loan.postal_code %></div>
+        <%  if loan.down_pmt_percent > 1 
+                dpp = loan.down_pmt_percent / 100 
+            else
+                dpp = loan.down_pmt_percent
+            end
+            if loan.annual_prop_tax > 1
+                apt = loan.annual_prop_tax / 100
+            else
+                apt = loan.annual_prop_tax
+            end
+            if loan.annual_insurance > 0
+                api = loan.annual_insurance / 100
+            else
+                api = loan.annual_insurance
+            end
+            if loan.interest_rate > 1
+                lir = loan.interest_rate / 100
+            else
+                lir = loan.interest_rate
+            end
+            if loan.income_tax_rate > 1
+                litr = loan.income_tax_rate / 100
+            else
+                litr = loan.income_tax_rate
+            end
+            p = loan.price * dpp
+        %>
+        <% pmi = (loan.price * dpp)/loan.price %>
+        <div class="col-md-12"><%= loan.price %></div>
+        <div class="col-md-12"><%= p.round(2) %></div>
+        <div class="col-md-12"><%= dpp %></div>
+        <div class="col-md-12"><%= loan.term %></div>
+        <div class="col-md-12"><%= loan.interest_rate %></div>
+        <div class="col-md-12"><%= loan.apr %></div>
+        <div class="col-md-12"><%= loan.annual_prop_tax %></div>
+        <div class="col-md-12"><%= loan.annual_insurance %></div>
+        <div class="col-md-12"><% if pmi < 0.2 %>150<%else%>0<%end%></div>
+        <div class="col-md-12"><%= loan.annual_maintenance %></div>
+        <div class="col-md-12"><%= loan.annual_improvements %></div>
+        <div class="col-md-12"><%= loan.income_tax_rate %></div>
+        <div class="col-md-12"><%= loan.hoa_dues %></div>
+        <div class="col-md-12" style="font-size:1.2em">&nbsp;</div>
+            <!-- setup some variables -->
+            <% down = loan.price - p %>
+            <% j = (dpp/100)/12 %>
+            <% n = loan.term * 12 %>
+            <% pi = down*( j/(1-(1+j)**(-n) )) %>
+            <% t = (apt * loan.price) / 12 %>
+            <% i = api * (loan.price/12)+pmi %>
+            <div class="col-md-12"><%= loan.price - p %></div>
+            <div class="col-md-12"><%= pi.round(2) %></div>
+            <div class="col-md-12"><%= t.round(2) %></div>
+            <div class="col-md-12"><%= i.round(2) %></div>
+            <div class="col-md-12"><%= (pi + t + i).round(2) %></div>
+        <div class="col-md-12" style="font-size:1.2em">&nbsp;</div>
+            <% mmaint = loan.annual_maintenance / 12 %>
+            <% mimprov = loan.annual_improvements / 12 %>
+            <% moe = pi + t + i + mmaint + mimprov + loan.hoa_dues %>
+            <div class="col-md-12"> <%= mmaint.round(2) %></div>
+            <div class="col-md-12"> <%= mimprov.round(2) %></div>
+            <div class="col-md-12"> <%= moe.round(2) %></div>
+        <div class="col-md-12" style="font-size:1.2em">&nbsp;</div>
+            <% mo_mort_int = (pi+t+i)-((loan.price - p)*((loan.apr/100) / 12)) %>
+            <% mta = litr*(mo_mort_int+t) %>
+            <div class="col-md-12"> <%= mo_mort_int.round(2) %></div>
+            <div class="col-md-12"> <%= mta.round(2) %></div>
+            <div class="col-md-12"> <%= (moe - mta).round(2) %></div>
+        <div class="col-md-12" style="font-size:1.2em">&nbsp;</div>
+            <div class="col-md-12"><%= loan.third_party_fees %></div>
+            <div class="col-md-12"><%= loan.lender_fees %></div>
+            <div class="col-md-12"><%= loan.escrow %></div>
+            <div class="col-md-12"><%= loan.third_party_fees + loan.lender_fees + loan.escrow + down %></div>
+    </div>
+<% end %>
+
+<br />

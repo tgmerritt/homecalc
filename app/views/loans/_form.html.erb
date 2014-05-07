@@ -1,0 +1,118 @@
+<%= form_for(@loan, html: { :class => "form-horizontal" }) do |f| %>
+  <% if @loan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@loan.errors.count, "error") %> prohibited this loan from being saved:</h2>
+
+      <ul>
+      <% @loan.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<fieldset>
+  <div class="form-group">
+    <div class="form-group">
+      <%= f.label :bank_name, 'Lender Name', :class => "col-md-3 control-label" %><br />
+      <div class="col-md-6">
+        <%= f.text_field :bank_name, :class => "form-control", :required => true %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :postal_code, :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :postal_code, :class => "form-control", :required => true %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :price, 'Sales Price', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :price, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'The final Sales Price of your property' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :down_pmt_percent, 'Down Payment %', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :down_pmt_percent, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'The percent of the final sales price you will put down in cash (go for 20%)' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :term, 'Loan Term (years)', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :term, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'Your loan term in years, typically 15 or 30' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :interest_rate, 'Interest Rate', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :interest_rate, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'The interest rate of your loan - this is NOT your APR' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :apr, 'APR', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :apr, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'The APR of your loan - this value allows you to most accurately comparison shop for loans between lenders' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :annual_prop_tax, 'Annual Property Tax', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :annual_prop_tax, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'Annual Property Tax as a PERCENTAGE - if you know the dollar amount, calculate the percentage' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :annual_insurance, 'Annual Home Owners Insurance', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :annual_insurance, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'Annual Home Owners Ins as a PERCENTAGE - if you know the dollar amount, calculate the percentage' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :annual_maintenance, 'Annual Maintenance', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :annual_maintenance, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'Annual Maintenance as a DOLLAR amount - this is arbitrary, but will help you better estimate the true cost of ownership' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :annual_improvements, 'Annual Improvements', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :annual_improvements, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'Annual Improvements as a DOLLAR amount - also arbitrary, basically how much you\'re going to spend on upgrades' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :income_tax_rate, 'Income Tax Rate', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :income_tax_rate, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'Your income tax rate as a PERCENT (i.e. 25)' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :hoa_dues, 'HOA Dues', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :hoa_dues, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'HOA Dues as a DOLLAR amount - if you don\'t know - ask the seller :)' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :third_party_fees, 'Third Party Fees', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :third_party_fees, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'Third Party Fees - typically from the lender to acquire your loan (survey, etc.)' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :lender_fees, 'Lender Fees', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :lender_fees, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'Lender Fees - usually these are loan origination fees like legal documents, courier, etc.' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :escrow, 'Escrow', :class => "col-md-3 control-label" %><br />
+    <div class="col-md-6">
+      <%= f.text_field :escrow, :class => "form-control", :data => {:toggle => 'tooltip' }, :title => 'Escrow is the lender holding money like taxes and the HOA dues in an account for you, paid monthly, but they will use it to pay your annual property taxes or HOA dues or any other fee' %>
+    </div>
+  </div>
+<% end %>
+<script>
+$(document).ready(function(){
+  $('.form-control').tooltip();
+});
+</script>
