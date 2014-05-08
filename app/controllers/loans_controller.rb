@@ -2,7 +2,7 @@ class LoansController < ApplicationController
   # GET /loans
   # GET /loans.json
   def index
-    @loans = Loan.where().sort(:created_at.desc).limit(5)
+    @loans = Loan.where().sort(:created_at.desc).limit(4)
 
     respond_to do |format|
       format.html # index.html.erb
