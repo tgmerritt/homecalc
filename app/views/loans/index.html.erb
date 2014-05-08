@@ -3,7 +3,7 @@
     <div class="col-md-4"><%= link_to 'New Loan', new_loan_path, :class => "btn btn-primary", :style => "color:white;margin-top:20px" %></div>
 </div>
 <div class="col-md-3">
-    <div class="col-md-12" style="color:blue;font-size:1.4em;min-height:25px">Lender in Postal Code</div>
+    <div class="col-md-12" style="color:blue;font-size:1.4em;min-height:40px">Lender in (Postal Code)</div>
     <div class="col-md-12">Price</div>
     <div class="col-md-12">Down Pmt $</div>
     <div class="col-md-12">Down Pmt %</div>
@@ -40,7 +40,7 @@
 
 <% @loans.each do |loan| %>
     <div class="col-md-2">
-        <div class="col-md-12" style="min-height:25px"> <%= loan.bank_name %> <%= loan.postal_code %></div>
+        <div class="col-md-12" style="min-height:40px"> <%= loan.bank_name %> <%= loan.postal_code %></div>
         <%  if loan.down_pmt_percent > 1 
                 dpp = loan.down_pmt_percent / 100 
             else
